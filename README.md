@@ -5,7 +5,7 @@
 It abstracts [stb_truetype](https://github.com/nothings/stb/blob/master/stb_truetype.h) to render glyphs to a pixmap and to produce appropriate clipping rects to later display those glyphs.
 
 **Hello world in C++**
-```
+```c++
 fc::font font = fc::from(font_data, fc::px(30), fc_color_black).add(fc_basic_latin).cook();
 fc::render_result result = font.render("Hello, world!");
 // use font.pixels() to make a texture
