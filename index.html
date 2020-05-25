@@ -45,9 +45,26 @@ $(function() {
 <div class="title">Welcome! </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Font Chef is a cross-platform C99 library to create character atlas of pre-rasterized glyphs from a font at a specified size and color. It is mostly useful in situations where you cannot afford to rasterize a piece of text again whenever it changes.</p>
+<div class="textblock"><p>Font Chef is a cross-platform C99 and C++ library to create character atlas of pre-rasterized glyphs from a font at a specified size and color. It is mostly useful in situations where you cannot afford to rasterize a piece of text again whenever it changes.</p>
 <p>It abstracts <a href="https://github.com/nothings/stb/blob/master/stb_truetype.h">stb_truetype</a> to render glyphs to a pixmap and to produce appropriate clipping rects to later display those glyphs.</p>
-<p>Features</p>
+<p><b>Hello world in C++</b> </p><div class="fragment"><div class="line"><a class="code" href="classfc_1_1font.html">fc::font</a> font = <a class="code" href="group__cpp.html#ga786f7bc26dcbc437400bb3483fee009f">fc::from</a>(font_data, <a class="code" href="group__cpp.html#gad729d18d0e3577f03942070c7d197319">fc::px</a>(30), <a class="code" href="group__color.html#gabedefbe208a8e6252a8dab16c7f1668d">fc_color_black</a>).<a class="code" href="classfc_1_1font.html#a630da851bf99ba7ce84061fd66358dcc">add</a>(fc_basic_latin).<a class="code" href="classfc_1_1font.html#ac5440c3d90388f9967c9dd4a09dbc486">cook</a>();</div>
+<div class="line"><span class="comment">// use font.pixels() to make a texture</span></div>
+<div class="line"><a class="code" href="structfc_1_1render__result.html">fc::render_result</a> result = font.<a class="code" href="classfc_1_1font.html#a90e36efac0ee0e2d7e26262e606de5f0">render</a>(<span class="stringliteral">&quot;Hello, world!&quot;</span>);</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp; map : result) {</div>
+<div class="line">    render(texture, map.source, map.target);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p><b>Hello world in C</b> </p><div class="fragment"><div class="line"><a class="code" href="structfc__font.html">fc_font</a> * font = <a class="code" href="group__font.html#ga6eaabbfdad1d4f2c2e04407c1d0f97ec">fc_construct</a>(font_data, <a class="code" href="group__font-size.html#ga6e72ad699f2e88321d1d6cf91abaee86">fc_px</a>(30), <a class="code" href="group__color.html#gabedefbe208a8e6252a8dab16c7f1668d">fc_color_black</a>);</div>
+<div class="line"><a class="code" href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a>(fc_basic_latin.start, fc_basic_latin.end);</div>
+<div class="line"><a class="code" href="group__font.html#ga2b49aee4f4cb9bc01171cdd24d6b4e6e">fc_cook</a>(font);</div>
+<div class="line"><span class="comment">// use fc_get_pixels(font) to make a texture</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> hello[] = <span class="stringliteral">&quot;Hello, world!&quot;</span>;</div>
+<div class="line"><a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> output[32];</div>
+<div class="line"><span class="keywordtype">int</span> count = <a class="code" href="group__font.html#gadbb524812ee58bddb80e7b3098c5e4eb">fc_render</a>(font, text, strlen(hello), output);</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++) {</div>
+<div class="line">    render(texture, output[i].source, output[i].target</div>
+<div class="line">}</div>
+</div><!-- fragment --><p><b>Features</b></p>
 <ul>
 <li>Small, clean and easy-to-use API</li>
 <li>Ships with C++ wrapper classes</li>
@@ -66,6 +83,21 @@ Starting points</h2>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
+<div class="ttc" id="astructfc_1_1render__result_html"><div class="ttname"><a href="structfc_1_1render__result.html">fc::render_result</a></div><div class="ttdoc">Wraps a std::vector&lt;fc_character_mapping&gt;.</div><div class="ttdef"><b>Definition:</b> render-result.hpp:30</div></div>
+<div class="ttc" id="agroup__color_html_gabedefbe208a8e6252a8dab16c7f1668d"><div class="ttname"><a href="group__color.html#gabedefbe208a8e6252a8dab16c7f1668d">fc_color_black</a></div><div class="ttdeci">struct fc_color const fc_color_black</div><div class="ttdoc">RGBA: #000000FF</div></div>
+<div class="ttc" id="agroup__font_html_ga2b49aee4f4cb9bc01171cdd24d6b4e6e"><div class="ttname"><a href="group__font.html#ga2b49aee4f4cb9bc01171cdd24d6b4e6e">fc_cook</a></div><div class="ttdeci">void fc_cook(struct fc_font *font)</div><div class="ttdoc">Generates a bitmap and corresponding character information for a font.</div></div>
+<div class="ttc" id="agroup__font_html_ga6eaabbfdad1d4f2c2e04407c1d0f97ec"><div class="ttname"><a href="group__font.html#ga6eaabbfdad1d4f2c2e04407c1d0f97ec">fc_construct</a></div><div class="ttdeci">struct fc_font * fc_construct(uint8_t const *font_data, struct fc_font_size font_size, struct fc_color font_color)</div><div class="ttdoc">Constructs a fc_font structure with the provided font, a size (either in pixels or points) and a font...</div></div>
+<div class="ttc" id="aclassfc_1_1font_html"><div class="ttname"><a href="classfc_1_1font.html">fc::font</a></div><div class="ttdoc">A wrapper class for fc_font.</div><div class="ttdef"><b>Definition:</b> font.hpp:29</div></div>
+<div class="ttc" id="agroup__cpp_html_gad729d18d0e3577f03942070c7d197319"><div class="ttname"><a href="group__cpp.html#gad729d18d0e3577f03942070c7d197319">fc::px</a></div><div class="ttdeci">font_size px(float v)</div><div class="ttdoc">Constructs a fc::font_size instance in pixels with specified value.</div><div class="ttdef"><b>Definition:</b> font-size.hpp:59</div></div>
+<div class="ttc" id="astructfc__font_html"><div class="ttname"><a href="structfc__font.html">fc_font</a></div><div class="ttdoc">A fc_font struct represents all data and metadata about a font.</div></div>
+<div class="ttc" id="agroup__font_html_ga218cfb52a088baad0605d79d4719b82b"><div class="ttname"><a href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a></div><div class="ttdeci">void fc_add(struct fc_font *font, uint32_t first, uint32_t last)</div><div class="ttdoc">Adds the given unicode range to the list of blocks to be cooked. You must add blocks before calling f...</div></div>
+<div class="ttc" id="agroup__font_html_gadbb524812ee58bddb80e7b3098c5e4eb"><div class="ttname"><a href="group__font.html#gadbb524812ee58bddb80e7b3098c5e4eb">fc_render</a></div><div class="ttdeci">int fc_render(struct fc_font const *font, unsigned char const *text, size_t byte_count, struct fc_character_mapping *mapping)</div><div class="ttdoc">Produces a list of source and target rectangles that can be used as clipping rects (or UV maps) for t...</div></div>
+<div class="ttc" id="aclassfc_1_1font_html_ac5440c3d90388f9967c9dd4a09dbc486"><div class="ttname"><a href="classfc_1_1font.html#ac5440c3d90388f9967c9dd4a09dbc486">fc::font::cook</a></div><div class="ttdeci">font &amp; cook() &amp;</div><div class="ttdoc">Cooks all the added unicode ranges into a pixmap and clipping information.</div><div class="ttdef"><b>Definition:</b> font.hpp:142</div></div>
+<div class="ttc" id="agroup__cpp_html_ga786f7bc26dcbc437400bb3483fee009f"><div class="ttname"><a href="group__cpp.html#ga786f7bc26dcbc437400bb3483fee009f">fc::from</a></div><div class="ttdeci">font from(uint8_t const *font_data, fc::font_size const &amp;font_size, fc::color const &amp;font_color)</div><div class="ttdoc">A helper method to ease font cooking via method chaining.</div><div class="ttdef"><b>Definition:</b> font.hpp:237</div></div>
+<div class="ttc" id="aclassfc_1_1font_html_a90e36efac0ee0e2d7e26262e606de5f0"><div class="ttname"><a href="classfc_1_1font.html#a90e36efac0ee0e2d7e26262e606de5f0">fc::font::render</a></div><div class="ttdeci">fc::render_result render(std::string const &amp;text) const</div><div class="ttdoc">Produces clipping and target rectangles to render specified text.</div><div class="ttdef"><b>Definition:</b> font.hpp:190</div></div>
+<div class="ttc" id="astructfc__character__mapping_html"><div class="ttname"><a href="structfc__character__mapping.html">fc_character_mapping</a></div><div class="ttdoc">Specifies source and target rectangles to render the specified codepoint.</div><div class="ttdef"><b>Definition:</b> character-mapping.h:34</div></div>
+<div class="ttc" id="agroup__font-size_html_ga6e72ad699f2e88321d1d6cf91abaee86"><div class="ttname"><a href="group__font-size.html#ga6e72ad699f2e88321d1d6cf91abaee86">fc_px</a></div><div class="ttdeci">struct fc_font_size fc_px(float value)</div><div class="ttdoc">Constructs and returns a fc_size value specified as pixels.</div></div>
+<div class="ttc" id="aclassfc_1_1font_html_a630da851bf99ba7ce84061fd66358dcc"><div class="ttname"><a href="classfc_1_1font.html#a630da851bf99ba7ce84061fd66358dcc">fc::font::add</a></div><div class="ttdeci">font &amp; add(fc_unicode_block const &amp;block) &amp;</div><div class="ttdoc">Adds a new unicode block to be cooked.</div><div class="ttdef"><b>Definition:</b> font.hpp:85</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
