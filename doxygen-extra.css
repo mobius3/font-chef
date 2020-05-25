@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,800;1,200;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+code {
+    font-family: 'Fira Code', monospace, fixed !important;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+body {
+    max-width: 960px;
+    margin: 0 auto;
+    font-family: Nunito, sans-serif;
+}
+
+body, table, div, p, dl {
+    font-family: Nunito, sans-serif !important;
+}
+
+h1, h2 {
+    font-weight: 600;
+}
+
+h2.groupheader {
+    font-size: 150%;
+    border-bottom: none;
+    font-weight: 800;
+}
+
+#top {
+    position: relative;
+}
+
+#top #titlearea {
+    border-bottom: none;
+}
+
+#projectalign {
+    padding-left: 10px !important;
+}
+
+#projectname {
+    font-family: Nunito, sans-serif;
+    font-weight: 800;
+}
+
+#projectnumber {
+    font-weight: 400;
+    font-size: 16px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 10px;
+    background-color: var(--color-fg-secondary);
+    padding: 0 10px;
+}
+
+#projectbrief {
+    font-style: italic;
+    font-weight: 200;
+}
+
+#main-nav {
+    margin-top: 15px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+#main-menu {
+    background-image: none;
+    padding: 0;
+    text-align: center;
+}
+
+#main-menu > li {
+    display: inline-block;
+    float: unset;
+    padding: 0 10px;
+    transition: background-color 0.2s;
+}
+
+
+#main-menu > li:hover {
+    background-color: #eee;
+}
+
+#main-menu > li > a {
+    background-image: none;
+    padding: 0;
+    text-shadow: none;
+    font-weight: 600;
+}
+
+
+#main-menu > li > a:hover {
+    text-shadow: none;
+    color: black;
+    font-weight: 800;
+}
+
+
+#main-menu > li > a .sub-arrow{
+    display: none;
+}
+
+
+#main-menu > li > ul > li a {
+    font-weight: 600;
+}
+
+#nav-path > ul {
+    display: none;
+}
+
+#main-menu > li > ul > li a:hover {
+    background-image: none !important;
+    text-shadow: none;
+    color: black;
+    font-weight: 800;
+}
+
+#main-menu #MSearchBox > .left, #main-menu #MSearchBox > .right, #main-menu #MSearchField {
+    background: none;
+    font-family: Nunito, sans-serif !important;
+    font-weight: 600;
+    padding-left: 5px;
+    font-size: 14px;
+}
+
+.header {
+    background: none !important;
+    border-bottom: none !important;
+}
+
+.header > .headertitle > .title {
+    font-size: 200%;
+}
+
+
+.header > .headertitle > .title > .ingroups {
+    color: transparent;
+}
+
+.header > .headertitle > .title > .ingroups > a {
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+
+div.directory {
+    border: none;
+}
+
+table.directory {
+    font-family: Nunito, sans-serif !important;
+}
+
+table.directory > tbody > tr {
+    background-color: transparent !important;
+}
+
+
+table.directory > tbody > tr > td.entry {
+    padding-right: 20px;
+}
+
+table.directory > tbody > tr > td.desc {
+    padding-left: 20px;
+    font-weight: 600;
+    padding-right: 20px;
+}
+
+
+hr.footer {
+    display: none;
+}
+.memItemLeft, .memItemRight, .memTemplItemLeft, .memTemplItemRight, .memTemplParams {
+    background-color: transparent;
+    font-family: 'Fira Code', monospace;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 0 0;
+}
+
+.mdescLeft, .mdescRight {
+    background-color: transparent;
+    font-family: Nunito, sans-serif;
+    padding: 0 0;
+    font-style: italic;
+}
+
+.memSeparator {
+    display: none;
+}
+
+.memtitle {
+    display: none;
+}
+
+.memname {
+    font-family: 'Fira Code', monospace;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.memproto {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: rgba(0, 0, 0, 0.05) 3px 3px 3px;
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+}
+
+.memdoc {
+    background-image: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: rgba(0, 0, 0, 0.05) 3px 3px 3px;
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+}
+
+div.fragment {
+    border: 1px solid #eee;
+    counter-reset: line-number;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+div.line, a.code {
+    font-family: 'Fira Code', monospace !important;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+div.line {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 500;
+}
+div.line::before {
+    counter-increment: line-number;
+    content: counter(line-number) '\0009';
+    color: #ddd;
+    tab-size: 2;
+    margin-right: -8px;
+}
+
+span.comment {
+    color: #bbb;
+    font-style: italic;
+}
+
+.paramname, .paramtype {
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    font-weight: 500 !important;
+}
+
+.params .paramname, .retval .paramname, .tparams .paramname, .exception .paramname {
+    padding-right: 10px;
+}
+
+hr {
+    opacity: 0;
+    padding: 20px 0;
+}
