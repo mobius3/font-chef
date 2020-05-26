@@ -75,61 +75,61 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> * <a class="code" href="group__font.html#ga6eaabbfdad1d4f2c2e04407c1d0f97ec">fc_construct</a>(</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  uint8_t <span class="keyword">const</span> * font_data,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__font__size.html">fc_font_size</a> font_size,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__color.html">fc_color</a> font_color</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a>(</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> * font,</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  uint32_t first,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  uint32_t last</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__font.html#ga2b49aee4f4cb9bc01171cdd24d6b4e6e">fc_cook</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> * font);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="group__font.html#gadbb524812ee58bddb80e7b3098c5e4eb">fc_render</a>(</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font,</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <span class="keyword">const</span> * text,</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  <span class="keywordtype">size_t</span> byte_count,</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> * mapping</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;FONT_CHEF_EXPORT <span class="keywordtype">int</span> <a class="code" href="group__font.html#ga34bb83df7a83a4a4163d25f4af8221b9">fc_render_wrapped</a>(</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font,</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <span class="keyword">const</span> * text,</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordtype">size_t</span> byte_count,</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">size_t</span> line_width,</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordtype">float</span> line_height_multiplier,</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keyword">enum</span> <a class="code" href="group__character-mapping.html#ga21083b23aeda48e899c06a2c45703fd1">fc_alignment</a> alignment,</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keyword">struct</span> <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> * mapping</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__font.html#gacdac1246f9601a6b643f6344b00883b6">fc_destruct</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> * font);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__font__size.html">fc_font_size</a> <a class="code" href="group__font.html#gabfa08f0bbb074f0d35618f28d9f6fb64">fc_get_font_size</a>(struct <a class="code" href="structfc__font.html">fc_font</a> const * font);</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__color.html">fc_color</a> <a class="code" href="group__font.html#ga71b75ca2fae0b667a05ed773a2cd66be">fc_get_color</a>(struct <a class="code" href="structfc__font.html">fc_font</a> const * font);</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> uint8_t <span class="keyword">const</span> * <a class="code" href="group__font.html#ga795ff870ac2faec2ef227447a4dc9bde">fc_get_font_data</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font);</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">size_t</span> <a class="code" href="group__font.html#ga25d628bb985dadb6304de575af2c81a2">fc_get_block_count</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font);</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__unicode__block.html">fc_unicode_block</a> <a class="code" href="group__font.html#gafdf836c12c0bc13e36afbb223d43f4d1">fc_get_block_at</a>(struct <a class="code" href="structfc__font.html">fc_font</a> const * font, <span class="keywordtype">size_t</span> index);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__pixels.html">fc_pixels</a> const * <a class="code" href="group__font.html#ga706c0d6b01757e90c20161f9363943ae">fc_get_pixels</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font);</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__size.html">fc_size</a> <a class="code" href="group__font.html#gacc3a7d7870d7a3deeff86b1a3cdbbeb0">fc_get_space_metrics</a>(struct <a class="code" href="structfc__font.html">fc_font</a> const * font);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160; </div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> * <a class="code" href="group__font.html#ga6eaabbfdad1d4f2c2e04407c1d0f97ec">fc_construct</a>(</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  uint8_t <span class="keyword">const</span> * font_data,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__font__size.html">fc_font_size</a> font_size,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__color.html">fc_color</a> font_color</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a>(</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> * font,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  uint32_t first,</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  uint32_t last</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__font.html#ga2b49aee4f4cb9bc01171cdd24d6b4e6e">fc_cook</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> * font);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="group__font.html#gadbb524812ee58bddb80e7b3098c5e4eb">fc_render</a>(</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font,</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <span class="keyword">const</span> * text,</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  <span class="keywordtype">size_t</span> byte_count,</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <span class="keyword">struct</span> <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> * mapping</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;FONT_CHEF_EXPORT <span class="keywordtype">int</span> <a class="code" href="group__font.html#ga34bb83df7a83a4a4163d25f4af8221b9">fc_render_wrapped</a>(</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font,</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <span class="keyword">const</span> * text,</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordtype">size_t</span> byte_count,</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordtype">size_t</span> line_width,</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordtype">float</span> line_height_multiplier,</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keyword">enum</span> <a class="code" href="group__character-mapping.html#ga21083b23aeda48e899c06a2c45703fd1">fc_alignment</a> alignment,</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keyword">struct</span> <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> * mapping</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__font.html#gacdac1246f9601a6b643f6344b00883b6">fc_destruct</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> * font);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__font__size.html">fc_font_size</a> <a class="code" href="group__font.html#gabfa08f0bbb074f0d35618f28d9f6fb64">fc_get_font_size</a>(struct <a class="code" href="structfc__font.html">fc_font</a> const * font);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__color.html">fc_color</a> <a class="code" href="group__font.html#ga71b75ca2fae0b667a05ed773a2cd66be">fc_get_color</a>(struct <a class="code" href="structfc__font.html">fc_font</a> const * font);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> uint8_t <span class="keyword">const</span> * <a class="code" href="group__font.html#ga795ff870ac2faec2ef227447a4dc9bde">fc_get_font_data</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font);</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">size_t</span> <a class="code" href="group__font.html#ga25d628bb985dadb6304de575af2c81a2">fc_get_block_count</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font);</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__unicode__block.html">fc_unicode_block</a> <a class="code" href="group__font.html#gafdf836c12c0bc13e36afbb223d43f4d1">fc_get_block_at</a>(struct <a class="code" href="structfc__font.html">fc_font</a> const * font, <span class="keywordtype">size_t</span> index);</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__pixels.html">fc_pixels</a> const * <a class="code" href="group__font.html#ga706c0d6b01757e90c20161f9363943ae">fc_get_pixels</a>(<span class="keyword">struct</span> <a class="code" href="structfc__font.html">fc_font</a> <span class="keyword">const</span> * font);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structfc__size.html">fc_size</a> <a class="code" href="group__font.html#gacc3a7d7870d7a3deeff86b1a3cdbbeb0">fc_get_space_metrics</a>(struct <a class="code" href="structfc__font.html">fc_font</a> const * font);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;}</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="agroup__font_html_ga795ff870ac2faec2ef227447a4dc9bde"><div class="ttname"><a href="group__font.html#ga795ff870ac2faec2ef227447a4dc9bde">fc_get_font_data</a></div><div class="ttdeci">const uint8_t * fc_get_font_data(struct fc_font const *font)</div><div class="ttdoc">Returns the font data specified in fc_construct.</div></div>
 <div class="ttc" id="astructfc__pixels_html_aa456d8cbc8e2cfffeafc624f777f1d6e"><div class="ttname"><a href="structfc__pixels.html#aa456d8cbc8e2cfffeafc624f777f1d6e">fc_pixels::dimensions</a></div><div class="ttdeci">struct fc_size dimensions</div><div class="ttdoc">Width and height of this pixel data. Buffer size would be dimensions.width * dimensions....</div><div class="ttdef"><b>Definition:</b> font.h:43</div></div>

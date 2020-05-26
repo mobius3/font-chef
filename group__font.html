@@ -145,8 +145,7 @@ Functions</h2></td></tr>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> main() {</div>
 <div class="line">    uint8_t * font_buffer = read_file(<span class="stringliteral">&quot;times.ttf&quot;</span>); <span class="comment">// replace with real font path</span></div>
-<div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> font;</div>
-<div class="line">    <a class="code" href="group__font.html#ga6eaabbfdad1d4f2c2e04407c1d0f97ec">fc_construct</a>(&amp;font, font_buffer, <a class="code" href="group__font-size.html#ga6e72ad699f2e88321d1d6cf91abaee86">fc_px</a>(12), <a class="code" href="group__color.html#gaf91ac7954ab73a8bf8bdec08f53d8000">fc_color_red</a>);</div>
+<div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> * font = <a class="code" href="group__font.html#ga6eaabbfdad1d4f2c2e04407c1d0f97ec">fc_construct</a>(font_buffer, <a class="code" href="group__font-size.html#ga6e72ad699f2e88321d1d6cf91abaee86">fc_px</a>(12), <a class="code" href="group__color.html#gaf91ac7954ab73a8bf8bdec08f53d8000">fc_color_red</a>);</div>
 <div class="line">    <span class="comment">// font is ready to be used</span></div>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
@@ -197,9 +196,9 @@ Functions</h2></td></tr>
 <p>Also note that no overlapping management is done.</p>
 <p>If you call this function <em>after</em> calling <code><a class="el" href="group__font.html#ga2b49aee4f4cb9bc01171cdd24d6b4e6e" title="Generates a bitmap and corresponding character information for a font.">fc_cook</a></code>, you will need to call <code><a class="el" href="group__font.html#ga2b49aee4f4cb9bc01171cdd24d6b4e6e" title="Generates a bitmap and corresponding character information for a font.">fc_cook</a></code> again. It is advised not to do this, add all the ranges you will be using before.</p>
 <p><b>Example</b> </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> main() {</div>
-<div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> font; <span class="comment">// suppose already initialized with fc_construct</span></div>
-<div class="line">    <a class="code" href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a>(&amp;font, fc_unicode_block_basic_latin.fist, fc_unicode_block_basic_latin.last);</div>
-<div class="line">    <a class="code" href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a>(&amp;font, fc_unicode_block_latin_1_supplement.fist, fc_unicode_block_latin_1_supplement.last);</div>
+<div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> * font; <span class="comment">// suppose already initialized with fc_construct</span></div>
+<div class="line">    <a class="code" href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a>(font, fc_unicode_block_basic_latin.fist, fc_unicode_block_basic_latin.last);</div>
+<div class="line">    <a class="code" href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a>(font, fc_unicode_block_latin_1_supplement.fist, fc_unicode_block_latin_1_supplement.last);</div>
 <div class="line">    <span class="comment">// font is ready for `fc_cook`</span></div>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
@@ -236,12 +235,11 @@ Functions</h2></td></tr>
 <div class="line"><span class="keywordtype">void</span> * create_texture(<span class="keywordtype">void</span> * pixel_data, <span class="keywordtype">size_t</span> width, <span class="keywordtype">size_t</span> height);</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> main() {</div>
-<div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> font; <span class="comment">// suppose `fc_construct` and `fc_add` was called</span></div>
+<div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> * font; <span class="comment">// suppose `fc_construct` and `fc_add` was called</span></div>
 <div class="line">    <a class="code" href="group__font.html#ga2b49aee4f4cb9bc01171cdd24d6b4e6e">fc_cook</a>(&amp;font);</div>
 <div class="line">    <span class="keywordtype">void</span> * texutre = create_texture(</div>
-<div class="line">        font.pixels.data,</div>
-<div class="line">        font.pixels.dimensions.width,</div>
-<div class="line">        font.pixels.dimensions.height</div>
+<div class="line">        <a class="code" href="group__font.html#ga706c0d6b01757e90c20161f9363943ae">fc_get_pixels</a>(font)-&gt;data,</div>
+<div class="line">        <a class="code" href="group__font.html#ga706c0d6b01757e90c20161f9363943ae">fc_get_pixels</a>(font)-&gt;dimensions</div>
 <div class="line">    );</div>
 <div class="line">    <span class="comment">// now you&#39;re ready for `fc_render`</span></div>
 <div class="line">}</div>
@@ -300,11 +298,11 @@ Functions</h2></td></tr>
 <div class="line"><span class="keywordtype">void</span> render_clip(<span class="keywordtype">void</span> * texture, <a class="code" href="structfc__rect.html">fc_rect</a> src, <a class="code" href="structfc__rect.html">fc_rect</a> dst);</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> main() {</div>
-<div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> font; <span class="comment">// suppose `fc_construct`, `fc_add` and `fc_cook` already called</span></div>
+<div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__font.html">fc_font</a> * font; <span class="comment">// suppose `fc_construct`, `fc_add` and `fc_cook` already called</span></div>
 <div class="line">    <span class="keywordtype">void</span> * texture; <span class="comment">// suppose texture created as in `fc_cook` examples</span></div>
 <div class="line">    <span class="keyword">struct </span><a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> mapping[13];</div>
 <div class="line">    <span class="keywordtype">char</span> <span class="keyword">const</span> * hello_world = <span class="stringliteral">&quot;Hello, World!&quot;</span>;</div>
-<div class="line">    <span class="keywordtype">int</span> glyph_count = <a class="code" href="group__font.html#gadbb524812ee58bddb80e7b3098c5e4eb">fc_render</a>(&amp;font, hello_world, 13, &amp;mapping);</div>
+<div class="line">    <span class="keywordtype">int</span> glyph_count = <a class="code" href="group__font.html#gadbb524812ee58bddb80e7b3098c5e4eb">fc_render</a>(font, hello_world, 13, &amp;mapping);</div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; glyph_count; ++i) {</div>
 <div class="line">       render_clip(texture, mapping[i].<a class="code" href="structfc__character__mapping.html#a14b7ade1433e20a6b4ad002e1b67942c">source</a>, mapping[i].destination);</div>
 <div class="line">    }</div>
@@ -639,6 +637,7 @@ Functions</h2></td></tr>
 <div class="ttc" id="agroup__font_html_ga218cfb52a088baad0605d79d4719b82b"><div class="ttname"><a href="group__font.html#ga218cfb52a088baad0605d79d4719b82b">fc_add</a></div><div class="ttdeci">void fc_add(struct fc_font *font, uint32_t first, uint32_t last)</div><div class="ttdoc">Adds the given unicode range to the list of blocks to be cooked. You must add blocks before calling f...</div></div>
 <div class="ttc" id="agroup__font_html_gadbb524812ee58bddb80e7b3098c5e4eb"><div class="ttname"><a href="group__font.html#gadbb524812ee58bddb80e7b3098c5e4eb">fc_render</a></div><div class="ttdeci">int fc_render(struct fc_font const *font, unsigned char const *text, size_t byte_count, struct fc_character_mapping *mapping)</div><div class="ttdoc">Produces a list of source and target rectangles that can be used as clipping rects (or UV maps) for t...</div></div>
 <div class="ttc" id="astructfc__character__mapping_html_a14b7ade1433e20a6b4ad002e1b67942c"><div class="ttname"><a href="structfc__character__mapping.html#a14b7ade1433e20a6b4ad002e1b67942c">fc_character_mapping::source</a></div><div class="ttdeci">struct fc_rect source</div><div class="ttdoc">The source rectangle that should be used to clip the texture/surface.</div><div class="ttdef"><b>Definition:</b> character-mapping.h:38</div></div>
+<div class="ttc" id="agroup__font_html_ga706c0d6b01757e90c20161f9363943ae"><div class="ttname"><a href="group__font.html#ga706c0d6b01757e90c20161f9363943ae">fc_get_pixels</a></div><div class="ttdeci">struct fc_pixels const  * fc_get_pixels(struct fc_font const *font)</div><div class="ttdoc">Returns the pixel data after for a font generated after a fc_cook was called.</div></div>
 <div class="ttc" id="astructfc__rect_html"><div class="ttname"><a href="structfc__rect.html">fc_rect</a></div><div class="ttdoc">Represents a rectangle with left, top, right and bottom float values.</div><div class="ttdef"><b>Definition:</b> rect.h:33</div></div>
 <div class="ttc" id="astructfc__character__mapping_html"><div class="ttname"><a href="structfc__character__mapping.html">fc_character_mapping</a></div><div class="ttdoc">Specifies source and target rectangles to render the specified codepoint.</div><div class="ttdef"><b>Definition:</b> character-mapping.h:34</div></div>
 <div class="ttc" id="agroup__font-size_html_ga6e72ad699f2e88321d1d6cf91abaee86"><div class="ttname"><a href="group__font-size.html#ga6e72ad699f2e88321d1d6cf91abaee86">fc_px</a></div><div class="ttdeci">struct fc_font_size fc_px(float value)</div><div class="ttdoc">Constructs and returns a fc_size value specified as pixels.</div></div>
