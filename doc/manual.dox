@@ -1,0 +1,28 @@
+/**
+@page manual Manual
+
+This manual presents how can you use Font Chef to load, cook fonts and render text.
+
+@section loading-and-cooking Loading and cooking
+
+The fc_font and it's C++ counterpart, fc::font, holds both font information (e.g, advance width, line height, etc) and it's pixel data after cooking. Cooked fonts need a height, that can be either defined in pixels or in points.
+
+To construct a `fc_font`, you will first need to have the truetype font loaded in memory. Loading it is not covered in this manual, you can use any method available (e.g, `fopen()/fread()`). You then call `fc_construct` passing the font buffer, the font height and the font color or if using C+ you can use either fc::font constructor directy or use fc::from (which is useful when chaining methods).
+
+<b>In C99</b>
+@code
+// construct a 30px, red-colored font
+struct fc_font * font = fc_construct(font_data, fc_px(30), fc_color_red);
+@endcode
+
+<b>In C++</b>
+@code
+// construct a 30px, red-colored font
+fc::font font = fc::from(font_data, fc_px(30), fc_color_red); // or
+fc::font font(font_data, fc_px(30), fc_color_red);
+@endcode
+
+@section unicode-blocks Adding unicode blocks
+
+**/
+
