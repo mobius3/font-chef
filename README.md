@@ -23,7 +23,7 @@ fc_cook(font);
 
 const char hello[] = "Hello, world!";
 fc_character_mapping output[32];
-int count = fc_render(font, text, strlen(hello), output);
+int count = fc_render(font, text, strlen(hello), &output);
 for (int i = 0; i < count; i++) {
     render(texture, output[i].source, output[i].target
 }
