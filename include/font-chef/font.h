@@ -69,8 +69,7 @@ struct fc_pixels {
  *
  * void main() {
  *     uint8_t * font_buffer = read_file("times.ttf"); // replace with real font path
- *     struct fc_font font;
- *     fc_construct(&font, font_buffer, fc_px(12), fc_color_red);
+ *     struct fc_font * font = fc_construct(font_buffer, fc_px(12), fc_color_red);
  *     // font is ready to be used
  * }
  * @endcode
@@ -104,9 +103,9 @@ FONT_CHEF_EXPORT extern struct fc_font * fc_construct(
  * **Example**
  * @code
  * void main() {
- *     struct fc_font font; // suppose already initialized with fc_construct
- *     fc_add(&font, fc_unicode_block_basic_latin.fist, fc_unicode_block_basic_latin.last);
- *     fc_add(&font, fc_unicode_block_latin_1_supplement.fist, fc_unicode_block_latin_1_supplement.last);
+ *     struct fc_font * font; // suppose already initialized with fc_construct
+ *     fc_add(font, fc_unicode_block_basic_latin.fist, fc_unicode_block_basic_latin.last);
+ *     fc_add(font, fc_unicode_block_latin_1_supplement.fist, fc_unicode_block_latin_1_supplement.last);
  *     // font is ready for `fc_cook`
  * }
  * @endcode
@@ -138,12 +137,11 @@ FONT_CHEF_EXPORT extern void fc_add(
  * void * create_texture(void * pixel_data, size_t width, size_t height);
  *
  * void main() {
- *     struct fc_font font; // suppose `fc_construct` and `fc_add` was called
+ *     struct fc_font * font; // suppose `fc_construct` and `fc_add` was called
  *     fc_cook(&font);
  *     void * texutre = create_texture(
- *         font.pixels.data,
- *         font.pixels.dimensions.width,
- *         font.pixels.dimensions.height
+ *         fc_get_pixels(font)->data,
+ *         fc_get_pixels(font)->dimensions
  *     );
  *     // now you're ready for `fc_render`
  * }
@@ -177,11 +175,11 @@ FONT_CHEF_EXPORT extern void fc_cook(struct fc_font * font);
  * void render_clip(void * texture, fc_rect src, fc_rect dst);
  *
  * void main() {
- *     struct fc_font font; // suppose `fc_construct`, `fc_add` and `fc_cook` already called
+ *     struct fc_font * font; // suppose `fc_construct`, `fc_add` and `fc_cook` already called
  *     void * texture; // suppose texture created as in `fc_cook` examples
  *     struct fc_character_mapping mapping[13];
  *     char const * hello_world = "Hello, World!";
- *     int glyph_count = fc_render(&font, hello_world, 13, &mapping);
+ *     int glyph_count = fc_render(font, hello_world, 13, &mapping);
  *     for (int i = 0; i < glyph_count; ++i) {
  *        render_clip(texture, mapping[i].source, mapping[i].destination);
  *     }
