@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Font Chef
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">A font cooking library</div>
   </td>
@@ -76,9 +76,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa469f676a53128b14894905d16a95651"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structfc__rect.html">fc_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__character-mapping.html#gaa469f676a53128b14894905d16a95651">fc_text_bounds</a> (struct <a class="el" href="structfc__character__mapping.html">fc_character_mapping</a> const mapping[], size_t length)</td></tr>
 <tr class="memdesc:gaa469f676a53128b14894905d16a95651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a bounding box for the rendered text.  <a href="group__character-mapping.html#gaa469f676a53128b14894905d16a95651">More...</a><br /></td></tr>
 <tr class="separator:gaa469f676a53128b14894905d16a95651"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2315b7a47054dd7ff6596a24dcb40447"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__character-mapping.html#ga2315b7a47054dd7ff6596a24dcb40447">fc_wrap</a> (struct <a class="el" href="structfc__character__mapping.html">fc_character_mapping</a> mapping[], size_t count, float line_width, float line_spacing, float space_width, enum <a class="el" href="group__character-mapping.html#ga21083b23aeda48e899c06a2c45703fd1">fc_alignment</a> alignment)</td></tr>
-<tr class="memdesc:ga2315b7a47054dd7ff6596a24dcb40447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Word-wraps characters in an array of <a class="el" href="structfc__character__mapping.html" title="Specifies source and target rectangles to render the specified codepoint.">fc_character_mapping</a>.  <a href="group__character-mapping.html#ga2315b7a47054dd7ff6596a24dcb40447">More...</a><br /></td></tr>
-<tr class="separator:ga2315b7a47054dd7ff6596a24dcb40447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaad940e9fcd70cedb8f7c5d44acb2e587"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__character-mapping.html#gaad940e9fcd70cedb8f7c5d44acb2e587">fc_wrap</a> (struct <a class="el" href="structfc__character__mapping.html">fc_character_mapping</a> mapping[], size_t count, float line_width, float line_height, float space_width, enum <a class="el" href="group__character-mapping.html#ga21083b23aeda48e899c06a2c45703fd1">fc_alignment</a> alignment)</td></tr>
+<tr class="memdesc:gaad940e9fcd70cedb8f7c5d44acb2e587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Word-wraps characters in an array of <a class="el" href="structfc__character__mapping.html" title="Specifies source and target rectangles to render the specified codepoint.">fc_character_mapping</a>.  <a href="group__character-mapping.html#gaad940e9fcd70cedb8f7c5d44acb2e587">More...</a><br /></td></tr>
+<tr class="separator:gaad940e9fcd70cedb8f7c5d44acb2e587"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa068b4d63f94670a3bb3eab961791c6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__character-mapping.html#gaa068b4d63f94670a3bb3eab961791c6f">fc_move</a> (struct <a class="el" href="structfc__character__mapping.html">fc_character_mapping</a> *mapping, size_t count, float left, float baseline)</td></tr>
 <tr class="memdesc:gaa068b4d63f94670a3bb3eab961791c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves all the target rectangles by <code>left</code> pixels horizontally and <code>baseline</code> pixels vertically.  <a href="group__character-mapping.html#gaa068b4d63f94670a3bb3eab961791c6f">More...</a><br /></td></tr>
 <tr class="separator:gaa068b4d63f94670a3bb3eab961791c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,7 +99,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specifies an aligment to be used when rendering wrapped text. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__character-mapping.html#ga2315b7a47054dd7ff6596a24dcb40447" title="Word-wraps characters in an array of fc_character_mapping.">fc_wrap</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__character-mapping.html#gaad940e9fcd70cedb8f7c5d44acb2e587" title="Word-wraps characters in an array of fc_character_mapping.">fc_wrap</a> </dd>
 <dd>
 <a class="el" href="group__font.html#ga34bb83df7a83a4a4163d25f4af8221b9" title="A shortcut for rendering and then wrapping the result.">fc_render_wrapped</a> </dd>
 <dd>
@@ -146,8 +146,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga2315b7a47054dd7ff6596a24dcb40447"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2315b7a47054dd7ff6596a24dcb40447">&#9670;&nbsp;</a></span>fc_wrap()</h2>
+<a id="gaad940e9fcd70cedb8f7c5d44acb2e587"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaad940e9fcd70cedb8f7c5d44acb2e587">&#9670;&nbsp;</a></span>fc_wrap()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -174,7 +174,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>line_spacing</em>, </td>
+          <td class="paramname"><em>line_height</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -197,13 +197,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Word-wraps characters in an array of <a class="el" href="structfc__character__mapping.html" title="Specifies source and target rectangles to render the specified codepoint.">fc_character_mapping</a>. </p>
-<p>This functions identifies words and then uses a greedy algorithm to wrap lines. Keep in mind that calling <a class="el" href="group__character-mapping.html#ga2315b7a47054dd7ff6596a24dcb40447" title="Word-wraps characters in an array of fc_character_mapping.">fc_wrap</a> on an already wrapped array will produce weird results. <code>line_spacing</code> and <code>space_width</code> can be obtained by calling <a class="el" href="group__font.html#gacc3a7d7870d7a3deeff86b1a3cdbbeb0" title="Returns the space glyph width and height for this font at its specified size.">fc_get_space_metrics</a>, which returns both how tall and how wide a space is. You can multiply <code>line_spacing</code> to increase between each line.</p>
+<p>This functions identifies words and then uses a greedy algorithm to wrap lines. Keep in mind that calling <a class="el" href="group__character-mapping.html#gaad940e9fcd70cedb8f7c5d44acb2e587" title="Word-wraps characters in an array of fc_character_mapping.">fc_wrap</a> on an already wrapped array will produce weird results. <code>line_height</code> and <code>space_width</code> can be obtained by calling <a class="el" href="group__font.html#gacc3a7d7870d7a3deeff86b1a3cdbbeb0" title="Returns the space glyph width and height for this font at its specified size.">fc_get_space_metrics</a>, which returns both how tall and how wide a space is. You can multiply <code>line_height</code> to increase between each line.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mapping</td><td>The array of character mappings to wrap </td></tr>
     <tr><td class="paramname">count</td><td>How many mappings are in the array </td></tr>
     <tr><td class="paramname">line_width</td><td>The maximum line width, in target/screen size (e.g, pixels) </td></tr>
-    <tr><td class="paramname">line_spacing</td><td>The space between the topmost pixel in the line to the bottomost pixel in the line (this includes characters in the line itself) </td></tr>
+    <tr><td class="paramname">line_height</td><td>The space between the topmost pixel in the line to the bottomost pixel in the line (this includes characters in the line itself) </td></tr>
     <tr><td class="paramname">space_width</td><td>The width of a space character </td></tr>
     <tr><td class="paramname">alignment</td><td>Which aligment should lines follow </td></tr>
   </table>
@@ -266,6 +266,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">baseline</td><td>Amount to add to the text baseline </td></tr>
   </table>
   </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main_8c-example.html#a11">main.c</a>.</dd>
 </dl>
 
 </div>

@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Font Chef
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">A font cooking library</div>
   </td>
@@ -103,6 +103,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A wrapper class for <a class="el" href="structfc__font.html" title="A fc_font struct represents all data and metadata about a font.">fc_font</a>. </p>
 <p>You can construct a <a class="el" href="classfc_1_1font.html" title="A wrapper class for fc_font.">fc::font</a> yourself or you can use fc::from (which is preferred if you are going to use method chaining, see fc::from for an examples). </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main_8cpp-example.html#_a0">main.cpp</a>.</dd>
+</dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab986a86aea2cfb8062127eff3628f69f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab986a86aea2cfb8062127eff3628f69f">&#9670;&nbsp;</a></span>font() <span class="overload">[1/3]</span></h2>
@@ -289,6 +291,8 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>*this </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__font.html#ga218cfb52a088baad0605d79d4719b82b" title="Adds the given unicode range to the list of blocks to be cooked. You must add blocks before calling f...">fc_add</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main_8cpp-example.html#a4">main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -452,6 +456,8 @@ Public Member Functions</h2></td></tr>
 <p>This is the <code>lvalue</code> version of this method (objects with a name)</p>
 <dl class="section return"><dt>Returns</dt><dd>*this </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__font.html#ga2b49aee4f4cb9bc01171cdd24d6b4e6e" title="Generates a bitmap and corresponding character information for a font.">fc_cook</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main_8cpp-example.html#a5">main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -511,6 +517,8 @@ Public Member Functions</h2></td></tr>
 <p>Obtains a structure containing a pointer to the pixel data and it's dimensions. </p>
 <p>Use this function when you want to create a texture after cooking the font with the desired unicode blocks/ranges</p>
 <dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="structfc__pixels.html" title="A structure holding pixel data and its dimensions.">fc_pixels</a> value </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main_8cpp-example.html#a6">main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -552,6 +560,8 @@ Public Member Functions</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__font.html#gadbb524812ee58bddb80e7b3098c5e4eb" title="Produces a list of source and target rectangles that can be used as clipping rects (or UV maps) for t...">fc_render</a> </dd>
 <dd>
 <a class="el" href="structfc_1_1render__result.html" title="Wraps a std::vector&lt;fc_character_mapping&gt;.">fc::render_result</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main_8cpp-example.html#a8">main.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
