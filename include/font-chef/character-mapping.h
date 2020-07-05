@@ -74,14 +74,14 @@ FONT_CHEF_EXPORT struct fc_rect fc_text_bounds(struct fc_character_mapping const
  * @ingroup character-mapping
  *
  * This functions identifies words and then uses a greedy algorithm to wrap lines. Keep in mind that calling
- * ::fc_wrap on an already wrapped array will produce weird results. @p line_spacing and @p space_width can be obtained by calling
- * ::fc_get_space_metrics, which returns both how tall and how wide a space is. You can multiply @p line_spacing to increase
+ * ::fc_wrap on an already wrapped array will produce weird results. @p line_height and @p space_width can be obtained by calling
+ * ::fc_get_space_metrics, which returns both how tall and how wide a space is. You can multiply @p line_height to increase
  * between each line.
  *
  * @param mapping The array of character mappings to wrap
  * @param count How many mappings are in the array
  * @param line_width The maximum line width, in target/screen size (e.g, pixels)
- * @param line_spacing The space between the topmost pixel in the line to the bottomost pixel in the line (this includes characters in the line itself)
+ * @param line_height The space between the topmost pixel in the line to the bottomost pixel in the line (this includes characters in the line itself)
  * @param space_width The width of a space character
  * @param alignment Which aligment should lines follow
  * @sa ::fc_render_wrapped
@@ -92,7 +92,7 @@ FONT_CHEF_EXPORT extern void fc_wrap(
     struct fc_character_mapping mapping[],
     size_t count,
     float line_width,
-    float line_spacing,
+    float line_height,
     float space_width,
     enum fc_alignment alignment
 );
