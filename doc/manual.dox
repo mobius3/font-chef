@@ -1,0 +1,309 @@
+/**
+@page manual Manual
+
+This manual presents how can you use Font Chef to load, cook fonts and render text. In the end you will have an example that would need just few adjustments to compile and run.
+
+@section loading-and-cooking Loading and cooking
+
+The fc_font structure and it's C++ counterpart, class fc::font, holds both font information (e.g, advance width, line height, etc) and it's pixel data after cooking. Fonts need a height, that can be either defined in pixels or in points and a color before being cooked.
+
+ Cooking then is the process of producing a bitmap with all the rendered glyphs that you are interested in and also having their positioning, kerning, and other information stored for later use.
+
+ @subsection constructing Constructing
+
+ To construct a `fc_font`/`fc::font`, you will first need to have the truetype font loaded in memory. To load a TTF file you can use any method available (e.g, `fopen()/fread()`). You then call `fc_construct` passing the font buffer, the font height and the font color or if using C+ you can use either fc::font constructor directy or use `fc::from` (which is useful when chaining methods).
+
+ Before going forward, let's assume a function that fully reads a file and returns a pointer to it:
+
+ <b>File reading function</b>
+ @code
+ void * read_file(char const * path);
+ @endcode
+
+ Then it is time to use this font data to construct a `fc_font`/`fc::font` instance:
+
+ <b>In C99</b>
+ @code
+ // construct a 30px, red-colored font
+ void * font_data = read_file("Nunito-Regular.ttf");
+ struct fc_font * font = fc_construct(font_data, fc_px(30), fc_color_red);
+ @endcode
+
+ <b>In C++</b>
+ @code
+ // construct a 30px, red-colored font
+ void * font_data = read_file("Nunito-Regular.ttf");
+ fc::font font_x(font_data, fc_px(30), fc_color_red); // or
+ fc::font font = fc::from(font_data, fc_px(30), fc_color_red); // which is the method we'll use forward
+ @endcode
+
+ Checkout the @ref color reference to see more options for defining a color in Font Chef.
+
+ @subsection unicode-blocks Adding unicode blocks
+
+ A unicode block (or range) is defined by it's first codepoint and it's last, inclusive. For instance, the _Basic Latin_ unicode block has the first codepoint being `0x20` which is the space character and it's last codepoint is `0x7f`, which is the DEL character (which might not have a corresponding glyph).
+
+ Before cooking, you need to add unicode blocks to a `fc_font`/`fc::font`. These are the characters that you intend to use after cooking.
+
+ Font Chef has bundled almost all unicode blocks defined by unicode.org. You can use them by adding `#include "font-chef/unicode-block.h"` in your code. Let's update our code:
+
+ <b>In C99</b>
+ @code
+ // construct a 30px, red-colored font
+ void * font_data = read_file("Nunito-Regular.ttf");
+ struct fc_font * font = fc_construct(font_data, fc_px(30), fc_color_red);
+ fc_add(font, fc_basic_latin.first, fc_basic_latin.last);
+ @endcode
+
+ <b>In C++</b>
+ @code
+ // construct a 30px, red-colored font
+ void * font_data = read_file("Nunito-Regular.ttf");
+ fc::font font = fc::from(font_data, fc_px(30), fc_color_red)
+                    .add(fc_basic_latin);
+ @endcode
+
+ @subsection cooking Cooking
+
+ As mentioned earlier, cooking is the process of rasterizing the glyphs at the specified font-height and creating an atlas with it. The end result is a bitmap with all the added codepoints rendered and information tables with enough data to produce a sequence of clipping and target rectangles when asked to.
+
+
+ <b>In C99</b>
+ @code
+ // construct a 30px, red-colored font and cooks it
+ void * font_data = read_file("Nunito-Regular.ttf");
+ struct fc_font * font = fc_construct(font_data, fc_px(30), fc_color_red);
+ fc_add(font, fc_basic_latin.first, fc_basic_latin.last);
+ fc_cook(font);
+ @endcode
+
+ <b>In C++</b>
+ @code
+ // construct a 30px, red-colored font and cooks it
+ void * font_data = read_file("Nunito-Regular.ttf");
+ fc::font font = fc::from(font_data, fc_px(30), fc_color_red)
+                    .add(fc_basic_latin);
+                    .cook();
+ @endcode
+
+ It is important to have in mind that after cooking, you can't just simply add more blocks and expect them to be rasterized. You will have to cook the font again, so it is advisable to add all the unicode blocks you need and cook the font just once.
+
+ @subsection texture Creating a texture
+
+ After cooking you'll have at your disposal a bitmap to create a texture to use as a clipping source. This part is really up to whatever rendering engine you're using, for this manual we will assume the following structure and function exists:
+
+ <b>Texture creation function:</b>
+ @code
+ struct texture; // forward declaration
+ struct texture * texture_from_pixels(void * pixels, uint32_t width, uint32_t height);
+ @endcode
+
+ Font Chef produces a 4 bytes-per-pixel in RGBA format that can be used to create hardware-accelerated textures to render on screen or to any other purpose you can think of. To extract the pixel data from a `fc_font`/`fc::font` structure:
+
+ <b>In C</b>
+
+ @code
+ // construct a 30px, red-colored font and cooks it
+ void * font_data = read_file("Nunito-Regular.ttf");
+ struct fc_font * font = fc_construct(font_data, fc_px(30), fc_color_red);
+ fc_add(font, fc_basic_latin.first, fc_basic_latin.last);
+ fc_cook(font);
+
+ struct fc_pixels const * pixels = fc_get_pixels(font);
+ struct texture * t = texture_from_pixels(pixels->data, pixels->dimensions.width, pixel->dimensions.height);
+ @endcode
+
+ <b>In C++</b>
+ @code
+ // construct a 30px, red-colored font and cooks it
+ void * font_data = read_file("Nunito-Regular.ttf");
+ fc::font font = fc::from(font_data, fc_px(30), fc_color_red)
+                    .add(fc_basic_latin);
+                    .cook();
+
+ fc_pixels pixels = font.pixels();
+ texture * t = texture_from_pixels(pixels.data, pixels.dimensions.width, pixel.dimensions.height);
+ @endcode
+
+ @section rendering-text Rendering text
+
+ After cooking and texture creation, everything is in place to render some text. Rather than directly displaying text Font Chef returns an array of source (or clip) and destination rectangles that you should use to instruct your rendering engine to render the part of the texture corresponding to the characters/glyphs in your text to the correct position in your render target (be it the video framebuffer or another image).
+
+ All code in the following sections are built upon the previous examples but for brevity they are not repeated here so you should assume the `font` has already been cooked and a `texture` is already created.
+
+ @subsection character-mapping Producing a character map
+
+ In C there is the type `fc_character_mapping`. It represents a single character source and target rectangles so you will need an array of them. In C++ there is a wrapper class, `fc::render_result`, that adds some syntatic sugar and supports iterators and ranged-based loops.
+
+ Examples on how to produce character mappings:
+
+ <b>In C</b>
+
+ @code
+ char const text[] = "Hello world!";
+ struct fc_character_mapping mapping[256]; // needs to be at least strlen(text) in size
+ int glyph_count = fc_render(font, text, strlen(text), mapping);
+ @endcode
+
+ <b>In C++</b>
+
+ @code
+ fc::render_result result = font.render("Hello, world!");
+ @endcode
+
+ `fc::font::render` accepts all types that the `std::string` constructor accepts.
+
+ If you need to render again you can reuse the same `fc::render_result` object:
+
+ @code
+ fc::render_result result = font.render("Hello, world!");
+ result = font.render("Hello, moon!", result);
+ @endcode
+
+ @subsection wrapalign Wrapping and aligning text
+
+ A common need when rendering text is the ability to wrap and align it in the available width. Font Chef has for this purpose `::fc_render_wrapped` and `::fc_wrap` for programs written in C and `fc::render_result::wrap` for programs written in C++. Before wrapping, you will need to know the line width, the line height and the space width. You don't need to figure out all this information yourself, Font Chef has `::fc_get_space_metrics` to help.
+
+<b>In C</b>
+
+ @code
+ char const text[] = "Hello world!";
+ struct fc_character_mapping mapping[256]; // needs to be at least strlen(text) in size
+ int glyph_count = fc_render(font, text, strlen(text), mapping);
+
+ // wraps the produced rendering at 80px using the space character's
+ // height as line height and it's width as the space width.
+ // Also right-aligns your text
+ struct fc_size space_metrics = fc_get_space_metrics(font);
+ fc_wrap(mapping, glyph_count, 80, space_metrics.height, space_metrics.width, fc_align_right);
+ @endcode
+
+ `::fc_render_wrapped` is a function you can call to perform the above in a single step with the difference that instead if receiving the line height, it receives a line height multiplier.
+
+ @code
+ char const text[] = "Hello world!";
+ struct fc_character_mapping mapping[256]; // needs to be at least strlen(text) in size
+ int glyph_count = fc_render_wrapped(font, text, strlen(text), 80, 1.0f, fc_align_left, mapping);
+ @endcode
+
+ <b>In C++</b>
+
+ @code
+ fc::render_result result = font.render("Hello, world!").wrap(80);
+ @endcode
+
+ `fc::render_result` holds a pointer to the original font so it is used internally to calculate sensible defaults. It also aligns-left by default. Although `fc::render_result::wrap` does not need to receive a line height, you can pass a multiplier to it to increase spacing between lines. It also accepts the alignment requirement:
+
+ @code
+ fc::render_result result = font.render("Hello, world!").wrap(80, 1.5f, fc_align_right);
+ @endcode
+
+ Checkout ::fc_alignment `enum` for more alignment options (<i>spoiler: they're `fc_align_left`, `fc_align_center` and `fc_align_right`</i>).
+
+ @warning Re-wrapping produces weird results. If you need to re-wrap your text constantly it is advisable to use `::fc_render_wrapped` rather than `::fc_render` and `::fc_wrap`.
+
+
+ @subsubsection moving-your-text Moving your text
+
+ The above code would render your text assuming a baseline at `y = 0`, so you might not be able to see the result later. To fix that all target rectangles should be adjusted in regards to where you want your baseline to be. To help with that Font Chef provides the `::fc_move` function in C and `fc::render_result::move` in C++. Use them when you want to move your text horizontally or vertically in regards to the render target.
+
+ <b>In C</b>
+ @code
+ char const text[] = "Hello world!";
+ struct fc_character_mapping mapping[256]; // needs to be at least strlen(text) in size
+ int glyph_count = fc_render_wrapped(font, text, strlen(text), 80, 1.0f, fc_align_left, mapping);
+
+ // Move the text vertically adding 128 pixels to the baseline
+ fc_move(mapping, glyph_count, 0.0f, 128);
+ @endcode
+
+ <b>In C++</b>
+ @code
+ // Move the text vertically adding 128 pixels to the baseline
+ fc::render_result result = font.render("Hello, world!").wrap(80).move(0.0f, 128.0f);
+ @endcode
+
+ @subsection rendering Rendering text
+
+ After all above, we are ready to render some text on screen (or any other render target). To that end, let's assume such a function exists:
+
+ @code
+ struct texture;
+ void render(struct texture * texture, fc_rect src, fc_rect target);
+ @endcode
+
+ What it would do is to render a part of the texture (specified by the `src` rect) to a specific position at the rendering target (specified by the `target` rect).
+
+ Our code so far is this:
+
+ <b>In C</b>
+
+ @code
+ // construct a 30px, red-colored font and cooks it
+ void * font_data = read_file("Nunito-Regular.ttf");
+ struct fc_font * font = fc_construct(font_data, fc_px(30), fc_color_red);
+ fc_add(font, fc_basic_latin.first, fc_basic_latin.last);
+ fc_cook(font);
+
+ struct fc_pixels const * pixels = fc_get_pixels(font);
+ struct texture * t = texture_from_pixels(pixels->data, pixels->dimensions.width, pixel->dimensions.height);
+
+ char const text[] = "Hello world!";
+ struct fc_character_mapping mapping[256]; // needs to be at least strlen(text) in size
+ int glyph_count = fc_render_wrapped(font, text, strlen(text), 80, 1.0f, fc_align_left, mapping);
+ @endcode
+
+ <b>In C++</b>
+ @code
+ // construct a 30px, red-colored font and cooks it
+ void * font_data = read_file("Nunito-Regular.ttf");
+ fc::font font = fc::from(font_data, fc_px(30), fc_color_red)
+                    .add(fc_basic_latin);
+                    .cook();
+
+ fc_pixels pixels = font.pixels();
+ texture * t = texture_from_pixels(pixels.data, pixels.dimensions.width, pixel.dimensions.height);
+ fc::render_result result = font.render("Hello, world!").wrap(80);
+ @endcode
+
+ So what is left is to call the texture render function defined earlier:
+
+ <b>In C</b>
+ @code
+ for (int i = 0; i < txt_glyph_count; i++) {
+   render(font_texture, mapping[i].source, mapping[i].target);
+ }
+ @endcode
+
+ <b>In C++</b>
+ @code
+ for (auto & map : result) {
+   render(font_texture, map.source, map.target);
+ }
+ @endcode
+
+ @section done Done!
+
+ By now you have all the tools needed to use Font Chef in your code to render some text. Don't forget to free all the memory you are no longer using. In C, you will have to call `::fc_destruct` on the `::fc_font` instance you created. For C++ this is not necessary as `fc::font` does this in it's destructor.
+
+ You don't need to manually free values returned by any of Font Chef functions (not even the pixels array). But depending on your rendering and file reading functions you might have to release the texture pointer and the buffer used to read the TTF file.
+
+ For a more complete example using SDL2 as it's rendering backend, checkout the <a href="examples.html">examples</a> page.
+*/
+
+/**
+ @example main.c Complete example for the C API
+
+  - See on <a href="https://github.com/mobius3/font-chef/tree/master/src/examples/c">GitHub</a>
+  - Checkout the <a href="https://github.com/mobius3/font-chef/tree/master/src/examples/common">common</a> folder for the `state` implementation
+*/
+
+/**
+ @example main.cpp Complete example for the C++ API.
+
+  - See on <a href="https://github.com/mobius3/font-chef/tree/master/src/examples/cpp">GitHub</a>
+  - Checkout the <a href="https://github.com/mobius3/font-chef/tree/master/src/examples/common">common</a> folder for the `state` implementation
+*/
+
+**/
+

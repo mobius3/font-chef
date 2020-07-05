@@ -27,7 +27,7 @@ float fc_text_segment_width(struct fc_text_segment const * segment, struct fc_ch
   return mapping[segment->end].target.right - mapping[segment->begin].target.left;
 }
 
-void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float line_size, float line_spacing, float space_width, enum fc_alignment aligment) {
+void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float line_width, float line_height, float space_width, enum fc_alignment aligment) {
   struct fc_text_segment * words = calloc(sizeof(*words), glyph_count);
   struct fc_text_segment * lines = calloc(sizeof(*lines), glyph_count);
   size_t word_count = 0;
@@ -58,7 +58,7 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
   }
 
   /* identify lines */
-  float space_left = line_size;
+  float space_left = line_width;
   size_t line_count = 1;
   for (size_t word_index = 0; word_index < word_count; word_index++) {
     struct fc_text_segment * word = &words[word_index];
@@ -67,7 +67,7 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
     if (((word_width + space_width) > space_left) && word_index > 0) {
       line_count++;
       lines[line_count-1].begin = words[word_index].begin;
-      space_left = line_size - word_width;
+      space_left = line_width - word_width;
     } else {
       space_left -= word_width + space_width;
     }
@@ -77,17 +77,17 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
   /* ajust yadd and xadd for lines according to alignment */
   float xadd, yadd;
   for (size_t line_i = 0; line_i < line_count; line_i++) {
-    yadd = line_i * line_spacing;
+    yadd = line_i * line_height;
     xadd = -mapping[lines[line_i].begin].target.left;
     switch (aligment) {
       default:
       case fc_align_left:
         break;
       case fc_align_center:
-        xadd += (line_size - fc_text_segment_width(&lines[line_i], mapping)) / 2;
+        xadd += (line_width - fc_text_segment_width(&lines[line_i], mapping)) / 2;
         break;
       case fc_align_right:
-        xadd += line_size - fc_text_segment_width(&lines[line_i], mapping);
+        xadd += line_width - fc_text_segment_width(&lines[line_i], mapping);
         break;
     }
     for (size_t glyph_i = lines[line_i].begin; glyph_i <= lines[line_i].end; glyph_i++) {
