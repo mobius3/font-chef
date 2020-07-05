@@ -42,7 +42,7 @@ for (int i = 0; i < count; i++) {
  <b>Features</b>
 
  - Small, clean and easy-to-use API
- - Ships with C++ wrapper classes
+ - Ships with @ref cpp wrapper classes
  - Considers kerning when resolving rendering rects
  - Ships with many standard unicode blocks to choose from
  - Rendering API agnostic (it does not render anything directly, it returns pixels and clipping rects)
@@ -50,8 +50,8 @@ for (int i = 0; i < count; i++) {
  - No external dependencies
 
  @subsection references Starting points
- - The <a href="modules.html">modules</a> section has functions and structs grouped
- - ::fc_construct, ::fc_add, ::fc_cook and ::fc_destruct are the main C functions
+ - The @ref manual page describes the core functionality of Font Chef
+ - The <a href="modules.html">modules</a> section has functions and structs grouped by type
  - Check the [Unicode Character Database](ftp://ftp.unicode.org/Public/UNIDATA/Blocks.txt) for a list of unicode blocks
  */
 
