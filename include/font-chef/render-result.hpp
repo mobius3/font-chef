@@ -72,6 +72,7 @@ namespace fc {
       this->mapping = std::move(other.mapping);
       this->font = other.font;
       other.font = nullptr;
+      return *this;
     }
 
     /**
