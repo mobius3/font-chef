@@ -13,6 +13,8 @@ struct fc_rect fc_text_bounds(struct fc_character_mapping const mapping[], size_
     struct fc_rect const * dst = &mapping[i].target;
     if (dst->top < r.top) r.top = dst->top;
     if (dst->bottom > r.bottom) r.bottom = dst->bottom;
+    if (dst->left < r.left) r.left = dst->left;
+    if (dst->right > r.right) r.right = dst->right;
   }
 
   return r;
@@ -45,6 +47,10 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
 
       /* skip spaces */
       while (m->codepoint == 0x20 && i + 1 < glyph_count) {
+        if (m->codepoint == 0x20 && fc_rect_width(&m->target) < 0.01f) {
+          // adjust empty-width spaces
+          m->target.right = m->target.left + space_width;
+        }
         ++i;
         m = &mapping[i];
       }
@@ -64,7 +70,7 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
     struct fc_text_segment * word = &words[word_index];
     struct fc_rect bounds = fc_text_bounds(mapping + word->begin, word->end - word->begin +1);
     float word_width = fc_rect_width(&bounds);
-    if (((word_width + space_width) > space_left) && word_index > 0) {
+    if (((word_width + space_width * 2) > space_left) && word_index > 0) {
       line_count++;
       lines[line_count-1].begin = words[word_index].begin;
       space_left = line_width - word_width;
