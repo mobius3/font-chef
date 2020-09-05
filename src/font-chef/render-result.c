@@ -104,6 +104,16 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
       dst->bottom += yadd;
     }
   }
+
+  /* make a pass on all spaces and make sure their left and top are within printable character bounds
+   * so that fc_text_bounds doesn't go all crazy */
+  size_t first_non_space_index = 0;
+  while (first_non_space_index < glyph_count && mapping[first_non_space_index].codepoint == 0x20) first_non_space_index++;
+
+  for (size_t glyph_i = 0; glyph_i < glyph_count; glyph_i++) {
+    if (mapping[glyph_i].codepoint != 0x20) continue;
+    mapping[glyph_i].target = mapping[first_non_space_index].target;
+  }
   free(words);
   free(lines);
 }
