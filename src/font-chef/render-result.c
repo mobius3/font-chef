@@ -34,32 +34,25 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
   struct fc_text_segment * lines = calloc(sizeof(*lines), glyph_count);
   size_t word_count = 0;
 
-  /* identify all the words. this is ugly and I'm a noob. */
-  size_t i = 0;
-  for (i = 0; i < glyph_count; i++) {
-    struct fc_character_mapping * m = &mapping[i];
-    if (m->codepoint == 0x20 || (i + 1 >= glyph_count)) {
-      words[word_count].end = i + (i + 1 >= glyph_count ? 0 : -1);
-      word_count++;
+  for (size_t i = 0; i < glyph_count; i++) {
+    struct fc_character_mapping * current_glyph = &mapping[i];
+    struct fc_text_segment * current_word = &words[word_count];
 
-      /* no more glyphs, hence no more words */
-      if (i + 1 >= glyph_count) break;
+    /* if this current word has no begin, it means it is starting at this glyph
+     * and word_count got incremented below */
+    if (current_word->begin == 0) {
+      current_word->begin = i;
+    }
 
-      /* skip spaces */
-      while (m->codepoint == 0x20 && i + 1 < glyph_count) {
-        if (m->codepoint == 0x20 && fc_rect_width(&m->target) < 0.01f) {
-          // adjust empty-width spaces
-          m->target.right = m->target.left + space_width;
-        }
-        ++i;
-        m = &mapping[i];
+    /* if we found a space, the word ends here and we skip to next iteration */
+    if (current_glyph->codepoint == 0x20 || current_glyph->codepoint == '\0' || i + 1 == glyph_count) {
+      /* some fonts don't properly set target width of spaces */
+      if (fc_rect_width(&current_glyph->target) < 0.01f) {
+        current_glyph->target.right = current_glyph->target.left + space_width;
       }
-
-      /* all that was left was spaces. no more words */
-      if (i + 1 >= glyph_count) break;
-
-      /* start a new word */
-      words[word_count].begin = i;
+      current_word->end = i;
+      word_count += 1;
+      continue;
     }
   }
 
@@ -70,7 +63,7 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
     struct fc_text_segment * word = &words[word_index];
     struct fc_rect bounds = fc_text_bounds(mapping + word->begin, word->end - word->begin +1);
     float word_width = fc_rect_width(&bounds);
-    if (((word_width + space_width * 2) > space_left) && word_index > 0) {
+    if (((word_width + space_width) > space_left) && word_index > 0) {
       line_count++;
       lines[line_count-1].begin = words[word_index].begin;
       space_left = line_width - word_width;
