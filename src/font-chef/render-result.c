@@ -21,12 +21,12 @@ struct fc_rect fc_text_bounds(struct fc_character_mapping const mapping[], size_
 }
 
 struct fc_text_segment {
-  size_t begin;
-  size_t end;
+  size_t first;
+  size_t last;
 };
 
 float fc_text_segment_width(struct fc_text_segment const * segment, struct fc_character_mapping const * mapping) {
-  return mapping[segment->end].target.right - mapping[segment->begin].target.left;
+  return mapping[segment->last].target.right - mapping[segment->first].target.left;
 }
 
 void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float line_width, float line_height, float space_width, enum fc_alignment aligment) {
@@ -40,20 +40,34 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
 
     /* if this current word has no begin, it means it is starting at this glyph
      * and word_count got incremented below */
-    if (current_word->begin == 0) {
-      current_word->begin = i;
+    if (current_word->first == 0 && word_count > 0) {
+      current_word->first = i;
     }
 
     /* if we found a space, the word ends here and we skip to next iteration */
-    if (current_glyph->codepoint == 0x20 || current_glyph->codepoint == '\0' || i + 1 == glyph_count) {
+    if (current_glyph->codepoint == 0x20 || current_glyph->codepoint == '\0') {
       /* some fonts don't properly set target width of spaces */
       if (fc_rect_width(&current_glyph->target) < 0.01f) {
         current_glyph->target.right = current_glyph->target.left + space_width;
       }
-      current_word->end = i;
+      current_word->last = i -1;
       word_count += 1;
-      continue;
+
+      /* since our words already have target rectangles, we need to move them
+       * right by the space_width amount for every extra space,
+       * because the line positioning algorithm below expects words to
+       * be apart by a single space */
+      while (mapping[i+1].codepoint == 0x20) {
+        i++;
+        fc_move(mapping + current_word->first, current_word->last - current_word->first +1, space_width, 0);
+      }
     }
+
+    if (i + 1 == glyph_count) {
+      current_word->last = i;
+      word_count += 1;
+    }
+
   }
 
   /* identify lines */
@@ -61,23 +75,23 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
   size_t line_count = 1;
   for (size_t word_index = 0; word_index < word_count; word_index++) {
     struct fc_text_segment * word = &words[word_index];
-    struct fc_rect bounds = fc_text_bounds(mapping + word->begin, word->end - word->begin +1);
+    struct fc_rect bounds = fc_text_bounds(mapping + word->first, word->last - word->first + 1);
     float word_width = fc_rect_width(&bounds);
     if (((word_width + space_width) > space_left) && word_index > 0) {
       line_count++;
-      lines[line_count-1].begin = words[word_index].begin;
+      lines[line_count-1].first = words[word_index].first;
       space_left = line_width - word_width;
     } else {
       space_left -= word_width + space_width;
     }
-    lines[line_count-1].end = words[word_index].end;
+    lines[line_count-1].last = words[word_index].last;
   }
 
   /* ajust yadd and xadd for lines according to alignment */
   float xadd, yadd;
   for (size_t line_i = 0; line_i < line_count; line_i++) {
     yadd = line_i * line_height;
-    xadd = -mapping[lines[line_i].begin].target.left;
+    xadd = -mapping[lines[line_i].first].target.left;
     switch (aligment) {
       default:
       case fc_align_left:
@@ -89,7 +103,7 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
         xadd += line_width - fc_text_segment_width(&lines[line_i], mapping);
         break;
     }
-    for (size_t glyph_i = lines[line_i].begin; glyph_i <= lines[line_i].end; glyph_i++) {
+    for (size_t glyph_i = lines[line_i].first; glyph_i <= lines[line_i].last; glyph_i++) {
       struct fc_rect * dst = &mapping[glyph_i].target;
       dst->left += xadd;
       dst->right += xadd;
