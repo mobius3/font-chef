@@ -4,7 +4,6 @@
 #include "font-chef/character-mapping.h"
 #include "font-chef/font.h"
 #include <vector>
-#include <cstdio>
 
 
 /**
@@ -55,7 +54,6 @@ namespace fc {
      */
     render_result(fc_font * font = nullptr, std::vector<fc_character_mapping> && mapping = {}) //NOLINT
         : mapping(mapping), font(font), line_count(0) {
-      ::printf("construct render result");
     };
 
     /**
