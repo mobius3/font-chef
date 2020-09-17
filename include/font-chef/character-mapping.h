@@ -84,11 +84,12 @@ FONT_CHEF_EXPORT struct fc_rect fc_text_bounds(struct fc_character_mapping const
  * @param line_height The space between the topmost pixel in the line to the bottomost pixel in the line (this includes characters in the line itself)
  * @param space_width The width of a space character
  * @param alignment Which aligment should lines follow
+ * @return The line count in the text
  * @sa ::fc_render_wrapped
  * @sa fc::render_result::wrap
  * @sa fc_get_space_metrics
  */
-FONT_CHEF_EXPORT extern void fc_wrap(
+FONT_CHEF_EXPORT extern uint32_t fc_wrap(
     struct fc_character_mapping mapping[],
     size_t count,
     float line_width,

@@ -29,7 +29,7 @@ float fc_text_segment_width(struct fc_text_segment const * segment, struct fc_ch
   return mapping[segment->last].target.right - mapping[segment->first].target.left;
 }
 
-void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float line_width, float line_height, float space_width, enum fc_alignment aligment) {
+uint32_t fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float line_width, float line_height, float space_width, enum fc_alignment aligment) {
   struct fc_text_segment * words = calloc(sizeof(*words), glyph_count);
   struct fc_text_segment * lines = calloc(sizeof(*lines), glyph_count);
   size_t word_count = 0;
@@ -67,7 +67,6 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
       current_word->last = i;
       word_count += 1;
     }
-
   }
 
   /* identify lines */
@@ -123,6 +122,7 @@ void fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, float li
   }
   free(words);
   free(lines);
+  return line_count;
 }
 
 void fc_move(struct fc_character_mapping * mapping, size_t count, float left, float baseline) {

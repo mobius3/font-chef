@@ -4,7 +4,6 @@
 #include "font-chef/character-mapping.h"
 #include "font-chef/font.h"
 #include <vector>
-#include <cstdio>
 
 
 /**
@@ -34,6 +33,11 @@ namespace fc {
     std::vector<::fc_character_mapping> mapping;
 
     /**
+     * @brief How many lines were produced
+     */
+     uint32_t line_count;
+
+    /**
      * @brief A pointer to the ::fc_font used to generate this mapping
      */
     fc_font * font;
@@ -49,8 +53,7 @@ namespace fc {
      * @sa fc::font::render
      */
     render_result(fc_font * font = nullptr, std::vector<fc_character_mapping> && mapping = {}) //NOLINT
-        : mapping(mapping), font(font) {
-      ::printf("construct render result");
+        : mapping(mapping), font(font), line_count(0) {
     };
 
     /**
@@ -58,7 +61,7 @@ namespace fc {
      * @param other A rvalue (moveable) ref to a fc::render_result instance
      */
     render_result(render_result && other) noexcept
-      : mapping(std::move(other.mapping)), font(other.font) {
+      : mapping(std::move(other.mapping)), font(other.font), line_count(other.line_count) {
       other.font = nullptr;
     };
 
@@ -71,6 +74,7 @@ namespace fc {
       if (this == &other) return *this;
       this->mapping = std::move(other.mapping);
       this->font = other.font;
+      this->line_count = other.line_count;
       other.font = nullptr;
       return *this;
     }
@@ -111,7 +115,7 @@ namespace fc {
     wrap(float line_width, float line_height_multiplier = 1.0f, fc_alignment alignment = fc_align_left) & {
       if (!font) return *this;
       fc_size space_metrics = fc_get_space_metrics(font);
-      fc_wrap(
+      this->line_count = fc_wrap(
           mapping.data(),
           mapping.size(),
           line_width,

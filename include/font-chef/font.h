@@ -43,6 +43,21 @@ struct fc_pixels {
   struct fc_size dimensions;
 };
 
+/**
+ * @brief A structure holding the result of a call to `fc_render` or `fc_render_wrapped`
+ */
+struct fc_render_result {
+  /**
+   * @brief How many lines were produced
+   */
+  uint32_t line_count;
+
+  /**
+   * @brief How many glphs were produced
+   */
+  uint32_t glyph_count;
+};
+
 
 /**
  * @struct fc_font
@@ -191,9 +206,10 @@ FONT_CHEF_EXPORT extern void fc_cook(struct fc_font * font);
  * @param byte_count How many bytes are there in the character array
  * @param mapping An array of `fc_character_mapping` values that
  *                       must be at least `byte_count` long.
- * @return the actual number of glyphs to be rendered.
+ * @return how many glyphs and lines were produced
+ * @sa ::fc_render_result
  */
-FONT_CHEF_EXPORT extern int fc_render(
+FONT_CHEF_EXPORT extern struct fc_render_result fc_render(
   struct fc_font const * font,
   unsigned char const * text,
   size_t byte_count,
@@ -216,11 +232,12 @@ FONT_CHEF_EXPORT extern int fc_render(
  * @param alignment Which aligment should lines follow
  * @param mapping An array of `fc_character_mapping` values that
  *                       must be at least `byte_count` long.
+ * @return how many glyphs and lines were produced
  * @sa ::fc_render
  * @sa ::fc_wrap
  * @sa fc::render_result::wrap
  */
-FONT_CHEF_EXPORT int fc_render_wrapped(
+FONT_CHEF_EXPORT struct fc_render_result fc_render_wrapped(
     struct fc_font const * font,
     unsigned char const * text,
     size_t byte_count,

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 cmake_policy(SET CMP0063 NEW)
-project(font-chef LANGUAGES C CXX VERSION 1.0.2)
+project(font-chef LANGUAGES C CXX VERSION 1.1.0)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake-modules)
 
 set(CMAKE_C_STANDARD 99)

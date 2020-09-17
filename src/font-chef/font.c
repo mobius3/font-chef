@@ -6,8 +6,6 @@
 #include <font-chef/character-mapping.h>
 
 
-#define fc_fabs(x) ((float) fabs((double) x))
-
 struct fc_font * fc_construct(
     uint8_t const * font_data,
     struct fc_font_size font_size,
@@ -104,7 +102,7 @@ void fc_cook(struct fc_font * font) {
   free(pixels_1bpp);
 }
 
-int fc_render(
+struct fc_render_result fc_render(
     struct fc_font const * font,
     unsigned char const * text,
     size_t byte_count,
@@ -154,11 +152,6 @@ int fc_render(
 
     m->codepoint = decode.codepoint;
 
-    /* stores the top offset to add it later to the mappings, to make sure
-     * that rendering starts at 0 */
-//    if ((dst->top < top_offset) || target_index == 0)
-//      top_offset = dst->top;
-
     /* checks to see if there is kerning to add to the next character, and
      * sets it to be used in the next iteration */
     kern = 0;
@@ -171,18 +164,13 @@ int fc_render(
     }
   }
 
-  /* characters are rendered around a baseline, which was set to 0 when
-   * fc_cook was called. the following loop goes through all glyph
-   * mappings and adjusts them to remove the "empty" space on top caused
-   * by that. */
-//  top_offset = fc_fabs(top_offset);
-//  for (size_t i = 0; i < target_index; i++) {
-//    mapping[i].target.top += top_offset;
-//    mapping[i].target.bottom += top_offset;
-//  }
-
   /* end of the loop, target_index will be the amount of decoded glyphs */
-  return (int) target_index;
+  struct fc_render_result result = {
+      .line_count = 1,
+      .glyph_count = (uint32_t) target_index
+  };
+
+  return result;
 }
 
 struct fc_font_size fc_get_font_size(struct fc_font const * font) {
@@ -229,7 +217,7 @@ void fc_destruct(struct fc_font * font) {
   free(font);
 }
 
-int fc_render_wrapped(
+struct fc_render_result fc_render_wrapped(
     struct fc_font const * font,
     unsigned char const * text,
     size_t byte_count,
@@ -238,10 +226,10 @@ int fc_render_wrapped(
     enum fc_alignment alignment,
     struct fc_character_mapping * mapping
 ) {
-  int rendered = fc_render(font, text, byte_count, mapping);
+  struct fc_render_result result = fc_render(font, text, byte_count, mapping);
   struct fc_size space_metrics = fc_get_space_metrics(font);
-  fc_wrap(mapping, rendered, (float) line_width, font->metrics.line_height * line_height_multiplier, space_metrics.width, alignment);
-  return rendered;
+  result.line_count = fc_wrap(mapping, result.glyph_count, (float) line_width, font->metrics.line_height * line_height_multiplier, space_metrics.width, alignment);
+  return result;
 }
 
 struct fc_size fc_get_space_metrics(struct fc_font const * font) {
