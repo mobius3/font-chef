@@ -20,7 +20,7 @@ int main(int argc, char const ** argv) {
 
   struct fc_character_mapping mapping[256];
   const char text[] = "Hello, handsome! I mean... world!";
-  int txt_glyph_count = fc_render_wrapped(
+  struct fc_render_result result = fc_render_wrapped(
       font,
       (uint8_t *) text,
       strlen(text),
@@ -28,10 +28,10 @@ int main(int argc, char const ** argv) {
       1.0f,
       fc_align_left, mapping
   );
-  fc_move(mapping, txt_glyph_count, 0.0f, state.bounds.bottom / 2 - 20);
+  fc_move(mapping, result.glyphs, 0.0f, state.bounds.bottom / 2 - 20);
 
   while (update(&state)) {
-    for (int i = 0; i < txt_glyph_count; i++) {
+    for (int i = 0; i < result.glyphs; i++) {
       render(font_texture, mapping[i].source, mapping[i].target);
     }
   }

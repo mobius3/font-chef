@@ -89,7 +89,7 @@ FONT_CHEF_EXPORT struct fc_rect fc_text_bounds(struct fc_character_mapping const
  * @sa fc::render_result::wrap
  * @sa fc_get_space_metrics
  */
-FONT_CHEF_EXPORT extern size_t fc_wrap(
+FONT_CHEF_EXPORT extern uint32_t fc_wrap(
     struct fc_character_mapping mapping[],
     size_t count,
     float line_width,

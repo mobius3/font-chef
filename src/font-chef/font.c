@@ -102,7 +102,7 @@ void fc_cook(struct fc_font * font) {
   free(pixels_1bpp);
 }
 
-int fc_render(
+struct fc_render_result fc_render(
     struct fc_font const * font,
     unsigned char const * text,
     size_t byte_count,
@@ -165,7 +165,12 @@ int fc_render(
   }
 
   /* end of the loop, target_index will be the amount of decoded glyphs */
-  return (int) target_index;
+  struct fc_render_result result = {
+      .lines = 1,
+      .glyphs = (uint32_t) target_index
+  };
+
+  return result;
 }
 
 struct fc_font_size fc_get_font_size(struct fc_font const * font) {
@@ -212,7 +217,7 @@ void fc_destruct(struct fc_font * font) {
   free(font);
 }
 
-int fc_render_wrapped(
+struct fc_render_result fc_render_wrapped(
     struct fc_font const * font,
     unsigned char const * text,
     size_t byte_count,
@@ -221,10 +226,10 @@ int fc_render_wrapped(
     enum fc_alignment alignment,
     struct fc_character_mapping * mapping
 ) {
-  int rendered = fc_render(font, text, byte_count, mapping);
+  struct fc_render_result result = fc_render(font, text, byte_count, mapping);
   struct fc_size space_metrics = fc_get_space_metrics(font);
-  fc_wrap(mapping, rendered, (float) line_width, font->metrics.line_height * line_height_multiplier, space_metrics.width, alignment);
-  return rendered;
+  result.lines = fc_wrap(mapping, result.glyphs, (float) line_width, font->metrics.line_height * line_height_multiplier, space_metrics.width, alignment);
+  return result;
 }
 
 struct fc_size fc_get_space_metrics(struct fc_font const * font) {

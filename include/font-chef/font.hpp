@@ -209,8 +209,9 @@ namespace fc {
         result.font = data;
         std::vector<fc_character_mapping> & mapping = result.mapping;
         if (mapping.size() < text.length()) mapping.resize(text.length());
-        size_t count = fc_render(data, (uint8_t *) text.data(), text.size(), mapping.data());
-        mapping.resize(count);
+        struct fc_render_result r = fc_render(data, (uint8_t *) text.data(), text.size(), mapping.data());
+        mapping.resize(r.glyphs);
+        result.line_count = r.lines;
         return result;
       }
   };
