@@ -6,8 +6,6 @@
 #include <font-chef/character-mapping.h>
 
 
-#define fc_fabs(x) ((float) fabs((double) x))
-
 struct fc_font * fc_construct(
     uint8_t const * font_data,
     struct fc_font_size font_size,
@@ -154,11 +152,6 @@ int fc_render(
 
     m->codepoint = decode.codepoint;
 
-    /* stores the top offset to add it later to the mappings, to make sure
-     * that rendering starts at 0 */
-//    if ((dst->top < top_offset) || target_index == 0)
-//      top_offset = dst->top;
-
     /* checks to see if there is kerning to add to the next character, and
      * sets it to be used in the next iteration */
     kern = 0;
@@ -170,16 +163,6 @@ int fc_render(
       kern = fc_get_kern(font, decode.codepoint, next.codepoint);
     }
   }
-
-  /* characters are rendered around a baseline, which was set to 0 when
-   * fc_cook was called. the following loop goes through all glyph
-   * mappings and adjusts them to remove the "empty" space on top caused
-   * by that. */
-//  top_offset = fc_fabs(top_offset);
-//  for (size_t i = 0; i < target_index; i++) {
-//    mapping[i].target.top += top_offset;
-//    mapping[i].target.bottom += top_offset;
-//  }
 
   /* end of the loop, target_index will be the amount of decoded glyphs */
   return (int) target_index;
