@@ -50,12 +50,12 @@ struct fc_render_result {
   /**
    * @brief How many lines were produced
    */
-  uint32_t lines;
+  uint32_t line_count;
 
   /**
    * @brief How many glphs were produced
    */
-  uint32_t glyphs;
+  uint32_t glyph_count;
 };
 
 

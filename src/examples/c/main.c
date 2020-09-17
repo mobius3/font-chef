@@ -28,10 +28,10 @@ int main(int argc, char const ** argv) {
       1.0f,
       fc_align_left, mapping
   );
-  fc_move(mapping, result.glyphs, 0.0f, state.bounds.bottom / 2 - 20);
+  fc_move(mapping, result.glyph_count, 0.0f, state.bounds.bottom / 2 - 20);
 
   while (update(&state)) {
-    for (int i = 0; i < result.glyphs; i++) {
+    for (int i = 0; i < result.glyph_count; i++) {
       render(font_texture, mapping[i].source, mapping[i].target);
     }
   }

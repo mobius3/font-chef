@@ -166,8 +166,8 @@ struct fc_render_result fc_render(
 
   /* end of the loop, target_index will be the amount of decoded glyphs */
   struct fc_render_result result = {
-      .lines = 1,
-      .glyphs = (uint32_t) target_index
+      .line_count = 1,
+      .glyph_count = (uint32_t) target_index
   };
 
   return result;
@@ -228,7 +228,7 @@ struct fc_render_result fc_render_wrapped(
 ) {
   struct fc_render_result result = fc_render(font, text, byte_count, mapping);
   struct fc_size space_metrics = fc_get_space_metrics(font);
-  result.lines = fc_wrap(mapping, result.glyphs, (float) line_width, font->metrics.line_height * line_height_multiplier, space_metrics.width, alignment);
+  result.line_count = fc_wrap(mapping, result.glyph_count, (float) line_width, font->metrics.line_height * line_height_multiplier, space_metrics.width, alignment);
   return result;
 }
 
