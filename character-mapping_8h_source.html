@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-blue.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">
-   &#160;<span id="projectnumber">1.0.2</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
   </td>
  </tr>
@@ -80,29 +80,29 @@ $(function() {
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;FONT_CHEF_EXPORT <span class="keyword">struct </span><a class="code" href="structfc__rect.html">fc_rect</a> <a class="code" href="group__character-mapping.html#gaa469f676a53128b14894905d16a95651">fc_text_bounds</a>(struct <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> const mapping[], size_t length);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__character-mapping.html#gaad940e9fcd70cedb8f7c5d44acb2e587">fc_wrap</a>(</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">struct</span> <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> mapping[],</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">size_t</span> count,</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">float</span> line_width,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">float</span> line_height,</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">float</span> space_width,</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">enum</span> <a class="code" href="group__character-mapping.html#ga21083b23aeda48e899c06a2c45703fd1">fc_alignment</a> alignment</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;FONT_CHEF_EXPORT <span class="keywordtype">void</span> <a class="code" href="group__character-mapping.html#gaa068b4d63f94670a3bb3eab961791c6f">fc_move</a>(<span class="keyword">struct</span> <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> * mapping, <span class="keywordtype">size_t</span> count, <span class="keywordtype">float</span> <a class="code" href="structfc__rect.html#aeeb3ab24d8be9af17ea57f5a9a269a0a">left</a>, <span class="keywordtype">float</span> baseline);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* FONT_CHEF_CHARACTER_MAPPING_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;FONT_CHEF_EXPORT <span class="keyword">extern</span> uint32_t <a class="code" href="group__character-mapping.html#ga625fa1acfeecb2d3bb694f01f11044a5">fc_wrap</a>(</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">struct</span> <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> mapping[],</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">size_t</span> count,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">float</span> line_width,</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">float</span> line_height,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">float</span> space_width,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">enum</span> <a class="code" href="group__character-mapping.html#ga21083b23aeda48e899c06a2c45703fd1">fc_alignment</a> alignment</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;FONT_CHEF_EXPORT <span class="keywordtype">void</span> <a class="code" href="group__character-mapping.html#gaa068b4d63f94670a3bb3eab961791c6f">fc_move</a>(<span class="keyword">struct</span> <a class="code" href="structfc__character__mapping.html">fc_character_mapping</a> * mapping, <span class="keywordtype">size_t</span> count, <span class="keywordtype">float</span> <a class="code" href="structfc__rect.html#aeeb3ab24d8be9af17ea57f5a9a269a0a">left</a>, <span class="keywordtype">float</span> baseline);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* FONT_CHEF_CHARACTER_MAPPING_H */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="agroup__character-mapping_html_gaad940e9fcd70cedb8f7c5d44acb2e587"><div class="ttname"><a href="group__character-mapping.html#gaad940e9fcd70cedb8f7c5d44acb2e587">fc_wrap</a></div><div class="ttdeci">void fc_wrap(struct fc_character_mapping mapping[], size_t count, float line_width, float line_height, float space_width, enum fc_alignment alignment)</div><div class="ttdoc">Word-wraps characters in an array of fc_character_mapping.</div></div>
 <div class="ttc" id="agroup__character-mapping_html_ga21083b23aeda48e899c06a2c45703fd1"><div class="ttname"><a href="group__character-mapping.html#ga21083b23aeda48e899c06a2c45703fd1">fc_alignment</a></div><div class="ttdeci">fc_alignment</div><div class="ttdoc">Specifies an aligment to be used when rendering wrapped text.</div><div class="ttdef"><b>Definition:</b> character-mapping.h:57</div></div>
 <div class="ttc" id="agroup__character-mapping_html_gaa469f676a53128b14894905d16a95651"><div class="ttname"><a href="group__character-mapping.html#gaa469f676a53128b14894905d16a95651">fc_text_bounds</a></div><div class="ttdeci">struct fc_rect fc_text_bounds(struct fc_character_mapping const mapping[], size_t length)</div><div class="ttdoc">Calculates a bounding box for the rendered text.</div></div>
 <div class="ttc" id="astructfc__character__mapping_html_a14b7ade1433e20a6b4ad002e1b67942c"><div class="ttname"><a href="structfc__character__mapping.html#a14b7ade1433e20a6b4ad002e1b67942c">fc_character_mapping::source</a></div><div class="ttdeci">struct fc_rect source</div><div class="ttdoc">The source rectangle that should be used to clip the texture/surface.</div><div class="ttdef"><b>Definition:</b> character-mapping.h:38</div></div>
 <div class="ttc" id="astructfc__character__mapping_html_ab8baede6c424e32626e76777e8feb9a9"><div class="ttname"><a href="structfc__character__mapping.html#ab8baede6c424e32626e76777e8feb9a9">fc_character_mapping::target</a></div><div class="ttdeci">struct fc_rect target</div><div class="ttdoc">The target rectangle, or where in the target coordinates you should render the clipped texture.</div><div class="ttdef"><b>Definition:</b> character-mapping.h:42</div></div>
 <div class="ttc" id="astructfc__rect_html_aeeb3ab24d8be9af17ea57f5a9a269a0a"><div class="ttname"><a href="structfc__rect.html#aeeb3ab24d8be9af17ea57f5a9a269a0a">fc_rect::left</a></div><div class="ttdeci">float left</div><div class="ttdoc">Left value.</div><div class="ttdef"><b>Definition:</b> rect.h:35</div></div>
+<div class="ttc" id="agroup__character-mapping_html_ga625fa1acfeecb2d3bb694f01f11044a5"><div class="ttname"><a href="group__character-mapping.html#ga625fa1acfeecb2d3bb694f01f11044a5">fc_wrap</a></div><div class="ttdeci">uint32_t fc_wrap(struct fc_character_mapping mapping[], size_t count, float line_width, float line_height, float space_width, enum fc_alignment alignment)</div><div class="ttdoc">Word-wraps characters in an array of fc_character_mapping.</div></div>
 <div class="ttc" id="astructfc__rect_html"><div class="ttname"><a href="structfc__rect.html">fc_rect</a></div><div class="ttdoc">Represents a rectangle with left, top, right and bottom float values.</div><div class="ttdef"><b>Definition:</b> rect.h:33</div></div>
 <div class="ttc" id="astructfc__character__mapping_html_a8e3c8e09c322503016534c61b5880b19"><div class="ttname"><a href="structfc__character__mapping.html#a8e3c8e09c322503016534c61b5880b19">fc_character_mapping::codepoint</a></div><div class="ttdeci">uint32_t codepoint</div><div class="ttdoc">Which unicode codepoint this mapping represents.</div><div class="ttdef"><b>Definition:</b> character-mapping.h:47</div></div>
 <div class="ttc" id="astructfc__character__mapping_html"><div class="ttname"><a href="structfc__character__mapping.html">fc_character_mapping</a></div><div class="ttdoc">Specifies source and target rectangles to render the specified codepoint.</div><div class="ttdef"><b>Definition:</b> character-mapping.h:34</div></div>
