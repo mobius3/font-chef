@@ -15,7 +15,6 @@ set(FONT_CHEF_PUBLIC_HEADERS
 )
 
 add_library(font-chef
-  SHARED
   color.c
   render-result.c
   font.c
@@ -28,8 +27,8 @@ add_library(font-chef
 )
 add_library(font-chef++ INTERFACE)
 
-target_link_libraries(font-chef PRIVATE stb::truetype)
-target_link_libraries(font-chef PRIVATE utf8-decode)
+target_link_libraries(font-chef PRIVATE $<TARGET_OBJECTS:stb::truetype>)
+target_link_libraries(font-chef PRIVATE $<TARGET_OBJECTS:utf8-decode>)
 
 generate_export_header(font-chef BASE_NAME font-chef EXPORT_FILE_NAME font-chef/font-chef-export.h)
 

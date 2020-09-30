@@ -1,5 +1,5 @@
 project(utf8-decode)
-add_library(utf8-decode STATIC
+add_library(utf8-decode OBJECT
   include/dfa.h
   src/dfa.c
   include/utf8-decode.h

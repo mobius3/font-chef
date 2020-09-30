@@ -1,5 +1,5 @@
 project(stb-truetype)
-add_library(stb-truetype STATIC src/stb_truetype.c)
+add_library(stb-truetype OBJECT src/stb_truetype.c)
 
 target_include_directories(stb-truetype PUBLIC include/)
 
