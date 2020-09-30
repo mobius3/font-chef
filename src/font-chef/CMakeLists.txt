@@ -23,6 +23,8 @@ add_library(font-chef
   font-size.c
   rect.c
   unicode-block.c
+  $<TARGET_OBJECTS:stb::truetype>
+  $<TARGET_OBJECTS:utf8-decode>
   ${FONT_CHEF_PUBLIC_HEADERS}
 )
 add_library(font-chef++ INTERFACE)
