@@ -48,10 +48,6 @@ set(FONT_CHEF_PP_PUBLIC_HEADERS
   "${I}/font-chef/render-result.hpp"
 )
 
-set_target_properties(font-chef++ PROPERTIES
-  PUBLIC_HEADER "${FONT_CHEF_PP_PUBLIC_HEADERS}"
-)
-
 target_include_directories(font-chef PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
@@ -90,9 +86,10 @@ install(TARGETS font-chef font-chef++
   COMPONENT "Font-Chef Runtime"
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   COMPONENT "Font-Chef Runtime"
-  NAMELINK_COMPONENT "Font-Chef Development"
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   COMPONENT "Font-Chef Development"
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/font-chef
   COMPONENT "Font-Chef Development"
 )
+
+install(FILES "${FONT_CHEF_PP_PUBLIC_HEADERS}" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/font-chef)
