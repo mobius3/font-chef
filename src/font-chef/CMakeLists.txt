@@ -27,8 +27,11 @@ add_library(font-chef
 )
 add_library(font-chef++ INTERFACE)
 
+get_target_property(STB_TT_LINK_LIBRARIES stb::truetype LINK_LIBRARIES)
+
 target_link_libraries(font-chef PRIVATE $<TARGET_OBJECTS:stb::truetype>)
 target_link_libraries(font-chef PRIVATE $<TARGET_OBJECTS:utf8-decode>)
+target_link_libraries(font-chef PRIVATE ${STB_TT_LINK_LIBRARIES})
 
 generate_export_header(font-chef BASE_NAME font-chef EXPORT_FILE_NAME font-chef/font-chef-export.h)
 
@@ -48,10 +51,14 @@ set(FONT_CHEF_PP_PUBLIC_HEADERS
   "${I}/font-chef/render-result.hpp"
 )
 
-target_include_directories(font-chef PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../include>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-  $<INSTALL_INTERFACE:include>
+target_include_directories(font-chef
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+    $<INSTALL_INTERFACE:include>
+  PRIVATE
+    $<TARGET_PROPERTY:stb::truetype,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:utf8-decode,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
 target_include_directories(font-chef++ INTERFACE
