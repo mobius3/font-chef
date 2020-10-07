@@ -29,9 +29,9 @@ add_library(font-chef
 )
 add_library(font-chef++ INTERFACE)
 
-get_target_property(STB_TT_LINK_LIBRARIES stb::truetype LINK_LIBRARIES)
-
-target_link_libraries(font-chef PRIVATE ${STB_TT_LINK_LIBRARIES})
+if (NOT MSVC)
+  target_link_libraries(font-chef PUBLIC "-lm")
+endif()
 
 generate_export_header(font-chef BASE_NAME font-chef EXPORT_FILE_NAME font-chef/font-chef-export.h)
 
