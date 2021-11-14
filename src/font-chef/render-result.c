@@ -122,7 +122,7 @@ uint32_t fc_wrap(struct fc_character_mapping mapping[], size_t glyph_count, floa
   }
   free(words);
   free(lines);
-  return line_count;
+  return (uint32_t) line_count;
 }
 
 void fc_move(struct fc_character_mapping * mapping, size_t count, float left, float baseline) {
